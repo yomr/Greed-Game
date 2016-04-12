@@ -49,14 +49,16 @@ class DiceSet
       #if there is a single one that cannot be part of the triplets.
       if key == 1
         @roll_score += value * 100
-        @scoring_dice += 1
+        @scoring_dice += value
       end
       #if there is a single one that cannot be part of the triplets.
       if key == 5
         @roll_score += value * 50
-        @scoring_dice += 1
+        @scoring_dice += value
       end
     end
+
+    puts "scoring dice - score",@scoring_dice, @roll_score 
     @non_scoring_dice = @num_dice_to_roll - @scoring_dice
     @roll_score
   end
