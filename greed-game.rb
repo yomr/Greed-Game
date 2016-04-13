@@ -12,9 +12,9 @@ class Display
 
   def self.show_results(players)
     puts "******* Final Results *****"
-    players.each {|player|
+    players.each do |player|
       puts "#{player.name} | #{player.total_points}"
-    }
+    end
   end
 end
 
@@ -64,10 +64,7 @@ class DiceSet
   end
 
   def roll
-    roll_points = []
-    #For the number of dice remaining, push the score.
-    @num_dice_to_roll.times {|n| roll_points << rand(6) + 1 }
-    calculate_score(roll_points)
+    calculate_score(@num_dice_to_roll.times.map {|n| rand(6) + 1 })
   end
 
   def no_scoring_dice?
@@ -96,8 +93,7 @@ class Players
 
     num_dice_to_roll = 5
     message = "<&&&&&&& #{@name.upcase }'s turn. Total Points till now #{@total_points} &&&&&&>"
-    if !@in_the_game
-      message += "YOU need to score 300 points to start the game."
+    message += "YOU need to score 300 points to start the game." if !@in_the_game
     end
     Display.print(message)
 
@@ -162,9 +158,7 @@ class GameController
     message = "Enter Player names separated with comma."
     players = Display.print_and_prompt(message)
     players = players.strip.split(/\s*,\s*/)
-    players.each do |name|
-      @players << Players.new(name)
-    end
+    @players = players.map { |name| Players.new(name)}
     puts @players
   end
 
