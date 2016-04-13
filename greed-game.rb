@@ -192,7 +192,7 @@ class GameController
       Display.print(message)
 
       @players.each do |player|
-        unless player.finished
+        unless player.player_done
           player.play_turn
         end
       end
